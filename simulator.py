@@ -36,8 +36,8 @@ def read_tournament(lines):
 
 
 def simulate_game(team1, team2):
-  already_played = games_played.get((team1, team2)) or tuple(reversed(games_played.get((team2, team1), [])))
-  if already_played:
+  if already_played := games_played.get(
+      (team1, team2)) or tuple(reversed(games_played.get((team2, team1), []))):
     return already_played
   score1 = model[team1]
   score2 = model[team2]
@@ -91,9 +91,12 @@ def simulate_group(group):
     goals_against[team1] += goals2
     goals_pro[team2] += goals2
     goals_against[team2] += goals1
-  teams = sorted(goals_against.keys(),
-                 key=lambda team: points[team] + float(goals_pro[team] - goals_against[team]) / 100 + float(goals_pro[team] / 10000), reverse=True)
-  return teams
+  return sorted(
+      goals_against.keys(),
+      key=lambda team: points[team] + float(goals_pro[team] - goals_against[
+          team]) / 100 + float(goals_pro[team] / 10000),
+      reverse=True,
+  )
 
 
 
@@ -125,7 +128,7 @@ def simulate_tournament(tournament):
       if third_places:
         random.shuffle(third_places)
         for idx, team in enumerate(third_places):
-          results['Q' + str(idx + 1)] = team
+          results[f'Q{str(idx + 1)}'] = team
 
   return results['Winner']
 

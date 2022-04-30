@@ -24,7 +24,7 @@ def parse_score(ref):
 
 def parse_date(date):
   day, month, year = date.split('/')
-  return '%s-%s-%s' % (year, month, day)
+  return f'{year}-{month}-{day}'
 
 if __name__ == '__main__':
   writer = csv.DictWriter(file('results.csv', 'w'), ['date', 'location', 'code1', 'team1', 'code2', 'team2', 'goals1', 'goals2'])
